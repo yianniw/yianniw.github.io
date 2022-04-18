@@ -1,9 +1,9 @@
 import './App.css';
 import Home from './Home';
 import About from './About';
-import {Route, Link} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import UnderConstruction from './UnderConstruction';
-import LoLgress from './LoLgress';
+import lolgress from './lolgress/lolgress';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Route exact path="/" component={UnderConstruction} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/about" component={About} />
-      <Route exact path="/LoLgress" component={LoLgress} />
+      <Route exact path="/lolgress" component={lolgress} />
     </div>
   );
 }
