@@ -1,10 +1,19 @@
-import React, {useState} from 'react'
-import { Button, Dropdown, DropdownButton, Form } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Button, Dropdown, DropdownButton, Form, Stack } from 'react-bootstrap';
+import region from '../data/regions.json'
+
+const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
+const isMobile = () => { return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); }
 
 function NameForm() {
-  const handleSubmit = (e) => {
-    console.log(e.target[0].value);
-    console.log(e.target[1].textContent);
+  const [showText, setShowText] = useState(false);
+  const [showRegion, setShowRegion] = useState(false);
+  const [border, setBorder] = useState("border border-info rounded")
+
+  const validate = (e) => {
+    isBlank(e.target[0].value) ? setShowText(true) : setShowText(false);
+    e.target[1].textContent === "Region" ? setShowRegion(true) : setShowRegion(false);
+    (showText && showRegion) ? setBorder("border border-info rounded") : setBorder("border border-danger rounded")
   }
 
   if(isMobile()) {
@@ -19,37 +28,48 @@ function NameForm() {
     );
   } else {
     return (
-      <Form onSubmit={handleSubmit} className='row'>
-        <div className='col'></div>
-        <div className='col-5' style={{position: 'relative'}}>
-          <Form.Control type="text" maxLength="16" placeholder="Summoner Name" />
-          <div style={{display: 'flex', position: 'absolute', top: '0px', right: '13px'}}>
-            <RegionPicker />
-            <Button type="submit">Go</Button>
-          </div>
-        </div>
-        <div className='col'></div>
-      </Form>
+      <div className={border} style={{margin: "10px", padding: "10px", background: "#EEEEEE"}}>
+        <Stack gap="1">
+          <Form onSubmit={validate}>
+            <Stack direction="horizontal" gap={3}>
+              <Form.Control type="text" placeholder="Summoner Name" />
+              <RegionPicker />
+              <div className="vr" />
+              <Button type="submit" style={{paddingInline: "15px"}}>Go</Button>
+            </Stack>
+          </Form>
+          {showText && <span style={{color: "red"}}>Enter a Summoner Name!</span>}
+          {showRegion && <span style={{color: "red"}}>Select a Region!</span>}
+        </Stack>
+      </div>
     );
   }
 }
 
 function RegionPicker() {
   const [btnTitle, setTitle] = useState("Region");
-  const handleChange = (val) => setTitle(val);
+  const [options] = useState(Object.keys(region));
+  const [isActive, setActive] = useState(Array(options.length).fill(false));
+
+  const handleChange = (e) => {
+    let pos = options.indexOf(e.target.textContent);
+    let newArr = Array(options.length).fill(false);
+    newArr[pos] = true;
+    setActive(newArr);
+    setTitle(e.target.textContent);
+  }
 
   return (
     <DropdownButton id="region-picker" variant="secondary" menuVariant="dark" title={btnTitle}>
-      <Dropdown.Item onClick={(e) => handleChange(e.target.textContent)}>NA</Dropdown.Item>
-      <Dropdown.Item onClick={(e) => handleChange(e.target.textContent)}>EUW</Dropdown.Item>
-      <Dropdown.Item onClick={(e) => handleChange(e.target.textContent)}>KR</Dropdown.Item>
-      <Dropdown.Item onClick={(e) => handleChange(e.target.textContent)}>JP</Dropdown.Item>
+      {options.map((option) => (
+        <Dropdown.Item
+          key={option}
+          onClick={(e) => handleChange(e)}
+          active={isActive[options.indexOf(option)]}
+        >{option}</Dropdown.Item>
+      ))}
     </DropdownButton>
   );
-}
-
-function isMobile() {
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
 export default NameForm;
