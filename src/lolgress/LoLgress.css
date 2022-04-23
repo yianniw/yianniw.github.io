@@ -1,0 +1,13 @@
+.title {
+  font-size: 30px;
+  color: white;
+  background-color: #282c34;
+  padding-block: 20px;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
