@@ -1,7 +1,7 @@
 
 class DDragonAPI {
   
-  #root = "http://ddragon.leagueoflegends.com/cdn/"
+  #root = "https://ddragon.leagueoflegends.com/cdn/"
   #version = "12.7.1"
 
   #champData = null;

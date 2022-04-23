@@ -38,9 +38,7 @@ function LoLgress() {
       {!formValid && <div style={{height: "100px"}} />}
       <div className="row"><NameForm formData={formData}/></div>
       <div className='row'>
-        <div className='col' />
-          {ddragon && <ChampGrid />}
-        <div className='col' />
+        {ddragon && <ChampGrid />}
       </div>
       {formValid &&         
         <Stack>{
