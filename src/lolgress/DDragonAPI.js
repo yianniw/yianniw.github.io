@@ -23,6 +23,10 @@ class DDragonAPI {
     return this.#champData[pos][1].key;
   }
 
+  getName(pos) {
+    return this.#champData[pos][1].name;
+  }
+
   getLength() {
     return this.#champData.length;
   }

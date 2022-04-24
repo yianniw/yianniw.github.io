@@ -35,11 +35,9 @@ function LoLgress() {
   return (
     <div>
       <div className='title'>LoLgress!</div>
-      {!formValid && <div style={{height: "100px"}} />}
+      {/* {!formValid && <div style={{height: "100px"}} />} */}
       <div className="row"><NameForm formData={formData}/></div>
-      <div className='row'>
-        {ddragon && <ChampGrid />}
-      </div>
+      {ddragon && <ChampGrid className="center"/>}
       {formValid &&         
         <Stack>{
           RiotAPI.summonerInfo.name

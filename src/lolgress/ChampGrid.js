@@ -1,16 +1,20 @@
 import React from "react";
-import { Stack, Image } from "react-bootstrap";
+import { Stack, Image, Figure } from "react-bootstrap";
 import DDragonAPI from "./DDragonAPI";
 
-function ChampGrid({ rowLength = 6, gap = 3, size = "90px" }) {
+function ChampGrid({ rowLength = 6, gap = 3, size = "102px", ...props }) {
 
   const getRow = (pos) => {
     var items = [];
     for(var i = pos; ((i < pos + rowLength) && (i < DDragonAPI.getLength())); i++) {
       items.push(
-        <Image key={DDragonAPI.getKey(i)}
-               src={DDragonAPI.getIconURL(i)}
-               style={{ width: size, height: size }} />
+        <Figure>
+          <Figure.Image
+            key={DDragonAPI.getKey(i)}
+            src={DDragonAPI.getIconURL(i)}
+            style={{ width: size, height: size }} />
+          <Figure.Caption>{DDragonAPI.getName(i)}</Figure.Caption>
+        </Figure>
       );
     }
     return items;
@@ -23,7 +27,8 @@ function ChampGrid({ rowLength = 6, gap = 3, size = "90px" }) {
       items.push(
         <Stack key={`row${i}`}
                gap={gap}
-               direction={"horizontal"} >
+               direction={"horizontal"}
+               {...props} >
           {getRow(i * rowLength)}
         </Stack>
       );
@@ -31,7 +36,7 @@ function ChampGrid({ rowLength = 6, gap = 3, size = "90px" }) {
     return items;
   }
 
-  return ( <Stack gap={gap}>{getGrid()}</Stack> );
+  return ( <Stack {...props}>{getGrid()}</Stack> );
 }
 
 export default ChampGrid;
