@@ -1,7 +1,6 @@
 
 class RiotAPI {
-  #apikey = "RGAPI-ebccd492-b116-4ba5-8546-88a9a5cbee23";
-  // RGAPI-ebccd492-b116-4ba5-8546-88a9a5cbee23
+  #apikey = "";
   #scheme = "https://";
   #region = "";
   #host = "api.riotgames.com/";
