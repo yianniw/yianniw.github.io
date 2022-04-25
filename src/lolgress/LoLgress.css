@@ -1,3 +1,15 @@
+.lolgress {
+  /* min-height: "100vh"; */
+  background-color: #264653;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+}
+
+.lolgress::-webkit-scrollbar {
+  display: none;
+}
+
 .title {
   font-size: 30px;
   color: white;

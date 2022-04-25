@@ -1,36 +1,56 @@
 import React, { useState } from 'react'
 import { Button, Dropdown, DropdownButton, Form, Stack } from 'react-bootstrap';
+import RiotAPI from '../RiotAPI';
 import region from '../data/regions.json'
+import './NameForm.css';
 
 const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
 
-function NameForm({formData}) {
+function NameForm() {
   const [showText, setShowText] = useState(false);
   const [showRegion, setShowRegion] = useState(false);
+  const [invalidName, setInvalidName] = useState(false);
   const [border, setBorder] = useState("info")
 
-  function validate(e) {
-    e.preventDefault();
+  const validate = async (name, region) => {
+    if(await RiotAPI.validateData(name, region)) {
+      setBorder("info");
+      setInvalidName(false);
+    } else {
+      setBorder("danger");
+      setInvalidName(true);
+    }
+  }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
     let textShow = isBlank(e.target[0].value);
     let regionShow = (e.target[1].textContent === "Region")
-
     setShowText(textShow);
     setShowRegion(regionShow);
     
     if(textShow || regionShow) {
       setBorder("danger");
+      setInvalidName(false);
     } else {
-      setBorder("info");
-      formData(e.target[0].value, e.target[1].textContent);
+      validate(e.target[0].value, e.target[1].textContent);
     }
   }
 
   return (
-    <div className={`border + border-${border} rounded`}
-         style={{margin: "10px auto", paddingInline: "20px", paddingBlock: "15px", maxWidth: "700px", background: "#EEEEEE"}}>
+    <div
+      className={`nameform border border-${border} rounded`}
+      style={{
+        margin: "auto",
+        width: "700px",
+        maxWidth: "700px",
+        paddingInline: "20px",
+        paddingBlock: "15px",
+        background: "#EEEEEE"
+      }}
+    >
       <Stack gap="1">
-        <Form onSubmit={validate}>
+        <Form onSubmit={handleSubmit}>
           <Stack direction="horizontal" gap={3}>
             <Form.Control type="text" maxLength="16" placeholder="Summoner Name" />
             <RegionPicker />
@@ -40,6 +60,7 @@ function NameForm({formData}) {
         </Form>
         {showText && <span style={{color: "red"}}>Enter a Summoner Name!</span>}
         {showRegion && <span style={{color: "red"}}>Select a Region!</span>}
+        {invalidName && <span style={{color: "red"}}>Could not find Summoner!</span>}
       </Stack>
     </div>
   );

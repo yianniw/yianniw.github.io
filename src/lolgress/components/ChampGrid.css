@@ -1,0 +1,47 @@
+.center {
+  justify-content: center;
+}
+
+.champgrid {
+  position: relative;
+}
+
+.scroll-frame {
+  height: 620px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  background-color: #2a9d8f;
+}
+
+.scroll-frame::-webkit-scrollbar {
+  display: none;
+}
+
+.bar {
+  height: 75px;
+}
+
+.top-cover {
+  height: 70px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #264653);
+  pointer-events: none;
+}
+
+.btm-cover {
+  height: 70px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0), #264653);
+  pointer-events: none;
+}
+
+.caption {
+  color: #e9c46a;
+}
