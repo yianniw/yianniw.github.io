@@ -1,9 +1,8 @@
 .lolgress {
-  /* min-height: "100vh"; */
   background-color: #264653;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  scrollbar-width: none;
 }
 
 .lolgress::-webkit-scrollbar {
@@ -15,6 +14,7 @@
   color: white;
   background-color: #282c34;
   padding-block: 20px;
+  text-align: center;
 }
 
 .center {

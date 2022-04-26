@@ -25,7 +25,7 @@ function LoLgress() {
       <NameForm />
       <div style={{height: "25px"}} />
       {ddragon && <ChampGrid />}
-      <div style={{height: "94px"}} />
+      <div style={{flexGrow: "1"}} />
     </div>
   )
 }
