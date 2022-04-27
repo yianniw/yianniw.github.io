@@ -2,9 +2,33 @@
   justify-content: center;
 }
 
-.champgrid {
+.ChampGrid {
+  max-width: 620px;
+  border: 4px solid #282c34;
+  border-radius: 10px;
+}
+
+.option-bar {
+  background-color: #282c34;
+  min-height: 50px;
+  padding-inline: 1px;
+}
+
+.btn.inactive {
+  opacity: 0.4;
+}
+
+.btn-text {
+  color: #e9c46a;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px #264653;
+}
+
+.grid {
   position: relative;
   text-align: center;
+  /* max-width: 625px; */
 }
 
 .scroll-frame {
@@ -20,11 +44,11 @@
 }
 
 .bar {
-  height: 75px;
+  height: 25px;
 }
 
 .top-cover {
-  height: 70px;
+  height: 40px;
   position: absolute;
   left: 0;
   right: 0;
@@ -34,7 +58,7 @@
 }
 
 .btm-cover {
-  height: 70px;
+  height: 40px;
   position: absolute;
   left: 0;
   right: 0;
@@ -43,6 +67,32 @@
   pointer-events: none;
 }
 
+.icon {
+  position: relative;
+  height: 110px;
+  width: 100px;
+  /* border: 1px solid black; */
+}
+
+.icon.show-decoration {
+  height: 150px;
+}
+
+.decoration {
+  position: absolute;
+  left: 13px;
+}
+
 .caption {
   color: #e9c46a;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px #264653;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.caption.show-decoration {
+  bottom: 0;
 }

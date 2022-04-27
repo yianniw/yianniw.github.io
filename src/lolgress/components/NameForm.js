@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import { Button, Dropdown, DropdownButton, Form, Stack } from 'react-bootstrap';
-import RiotAPI from '../RiotAPI';
 import region from '../data/regions.json'
 import './NameForm.css';
 
 const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
 
-function NameForm() {
+function NameForm({rAPI, toggleRAPI}) {
   const [showText, setShowText] = useState(false);
   const [showRegion, setShowRegion] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
-  const [border, setBorder] = useState("info")
+  const [border, setBorder] = useState("info");
 
   const validate = async (name, region) => {
-    if(await RiotAPI.validateData(name, region)) {
+    if(await rAPI.validateData(rAPI, name, region)) {
       setBorder("info");
       setInvalidName(false);
+      if(await rAPI.fetchChampData(rAPI)) {
+        toggleRAPI(true);
+      }
     } else {
       setBorder("danger");
       setInvalidName(true);
@@ -39,14 +41,15 @@ function NameForm() {
 
   return (
     <div
-      className={`nameform border border-${border} rounded`}
+      className={`border border-${border} rounded`}
       style={{
         margin: "auto",
         width: "700px",
-        maxWidth: "700px",
         paddingInline: "20px",
         paddingBlock: "15px",
-        background: "#EEEEEE"
+        marginBlock: "25px",
+        background: "#EEEEEE",
+        textAlign: "center"
       }}
     >
       <Stack gap="1">

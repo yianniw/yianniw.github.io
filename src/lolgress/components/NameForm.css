@@ -1,6 +1,7 @@
 .nameform {
   margin: "10px auto";
   padding-inline: "20px";
-  padding-block: "15px";
+  padding-block: "10px";
   background: "#EEEEEE";
+  text-align: center;
 }

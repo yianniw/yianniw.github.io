@@ -20,7 +20,7 @@ class DDragonAPI {
   }
 
   getKey(pos) {
-    return this.#champData[pos][1].key;
+    return parseInt(this.#champData[pos][1].key);
   }
 
   getName(pos) {
