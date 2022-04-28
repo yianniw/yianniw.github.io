@@ -12,12 +12,10 @@ function NameForm({rAPI, toggleRAPI}) {
   const [border, setBorder] = useState("info");
 
   const validate = async (name, region) => {
-    if(await rAPI.validateData(rAPI, name, region)) {
+    if(await rAPI.fetchData(rAPI, name, region)) {
       setBorder("info");
       setInvalidName(false);
-      if(await rAPI.fetchChampData(rAPI)) {
-        toggleRAPI(true);
-      }
+      toggleRAPI(true);
     } else {
       setBorder("danger");
       setInvalidName(true);

@@ -1,34 +1,55 @@
 
 class RiotAPI {
-  #apikey = "";
-  #scheme = "https://";
-  #region = "";
-  #host = "api.riotgames.com/";
-  #query = "?api_key=";
-  #name = "";
+  static get ApiToken() { return ""; }
+  static get Scheme() { return "https://"; }
+  static get Host() { return ".api.riotgames.com/"; }
+  static get Query() { return "?api_key="; }
 
-  getName = () => { return this.#name; }
-  getRegion = () => { return this.#region; }
+  #name = "";
+  #region = "";
   setName = (name) => { this.#name = name; }
   setRegion = (region) => { this.#region = region; }
+  get Name() { return this.#name }
+  get Region() { return this.#region }
 
   summonerData = null;
+  get SummonerId() { return this.summonerData != null ? this.summonerData.id : null; }
+
   championData = null;
-  
-  async validateData(rAPI, name, region) {
+
+  async fetchData(rAPI, name, region) {
     region = region.toLowerCase();
 
-    // prevent redundant requests
+    // check if summoner data is already available
     if(rAPI.summonerData != null) {
-      if(name === rAPI.getName() && region === rAPI.getRegion()) {
+      if(name === rAPI.Name && region === rAPI.Region) {
+        console.log("summoner");
         return true;
       }
     }
 
-    let endpoint = "lol/summoner/v4/summoners/by-name/"
-    let request = this.#scheme + region + "." + this.#host + endpoint + name + this.#query;
+    if(!await this.fetchName(rAPI, name, region))
+      return false;
 
-    return await fetch(request + this.#apikey)
+    // check if champion data is already available
+    if(rAPI.championData != null) {
+      if(rAPI.championData[0].summonerId === rAPI.summonerData.id) {
+        console.log("champ");
+        return true;
+      }
+    }
+
+    if(!await this.fetchChamp(rAPI))
+      return false;
+    
+    return true;
+  }
+  
+  async fetchName(rAPI, name, region) {
+    let endpoint = "lol/summoner/v4/summoners/by-name/"
+    let request = RiotAPI.Scheme + region + RiotAPI.Host + endpoint + name + RiotAPI.Query;
+
+    return fetch(request + RiotAPI.ApiToken)
       .then(response => response.json())
       .then(data => {
         rAPI.summonerData = data;
@@ -41,18 +62,11 @@ class RiotAPI {
       });
   }
 
-  async fetchChampData(rAPI) {
-    // prevent redundant requests
-    if(rAPI.championData != null) {
-      if(rAPI.championData[0].summonerId === rAPI.summonerData.id) {
-        return true;
-      }
-    }
-    
+  async fetchChamp(rAPI) {    
     let endpoint = "lol/champion-mastery/v4/champion-masteries/by-summoner/"
-    let request = this.#scheme + rAPI.getRegion() + "." + this.#host + endpoint + rAPI.summonerData.id + this.#query;
+    let request = RiotAPI.Scheme + rAPI.Region + RiotAPI.Host + endpoint + rAPI.SummonerId + RiotAPI.Query;
 
-    return fetch(request + this.#apikey)
+    return fetch(request + RiotAPI.ApiToken)
       .then(response => response.json())
       .then(data => {
         rAPI.championData = data;
