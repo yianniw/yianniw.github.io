@@ -25,6 +25,24 @@
   border: 5px solid #282c34;
 }
 
-.center {
+#nameform-container {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  transition: flex-grow 750ms ease-in-out;
+  margin-block: 20px;
+}
+
+#spacer {
+  display: flex;
+  transition: flex-grow 750ms ease-in-out;
+}
+
+#api-form {
+  max-width: 700px;
+  max-height: 70px;
+  background: #EEEEEE;
+  padding-inline: 20px;
+  padding-block: 15px;
+  margin-inline: 15px;
 }

@@ -1,5 +1,6 @@
 
 const isMobile = () => { return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); }
+const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
 
 function importAll(r) {
   let images = {};
@@ -7,4 +8,4 @@ function importAll(r) {
   return images;
 }
 
-export {isMobile, importAll}
+export {isMobile, isBlank, importAll}

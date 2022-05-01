@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Dropdown, DropdownButton, Form, Stack, Spinner } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Form, Spinner } from 'react-bootstrap';
 import region from '../data/regions.json'
 import './NameForm.css';
-
-const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
+import { isMobile, isBlank } from '../Util';
 
 function NameForm({rAPI, updateSummoner}) {
   const [showText, setShowText] = useState(false);
@@ -41,36 +40,26 @@ function NameForm({rAPI, updateSummoner}) {
   }
 
   return (
-    <div
-      className={`border border-${border} rounded`}
-      style={{
-        margin: "auto",
-        width: "700px",
-        paddingInline: "20px",
-        paddingBlock: "15px",
-        marginBlock: "25px",
-        background: "#EEEEEE",
-        textAlign: "center"
-      }}
-    >
-      <Stack gap="1">
-        <Form onSubmit={handleSubmit}>
-          <Stack direction="horizontal" gap={3}>
-            <Form.Control type="text" maxLength="16" placeholder="Summoner Name" />
-            <RegionPicker />
-            <div className="vr" />
-            {!isLoading && <Button type="submit" style={{paddingInline: "15px"}}>Go</Button>}
-            {isLoading &&
-              <Button variant="primary" style={{paddingInline: "15px"}} disabled>
-                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                <span className="visually-hidden">Loading...</span>
-              </Button>}
-          </Stack>
-        </Form>
+    <div id={`nameform${isMobile() ? "-mobile" : ""}`} className={`border border-${border} rounded`}>
+      <Form onSubmit={handleSubmit}>
+        <div id={`content${isMobile() ? "-mobile" : ""}`}>
+          <Form.Control type="text" placeholder="Summoner Name..." />
+          <RegionPicker />
+          <div className="vr" />
+          {!isLoading && <Button type="submit" style={{paddingInline: "15px"}}>Go</Button>}
+          {isLoading &&
+          <Button style={{paddingInline: "15px"}} disabled>
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            <span className="visually-hidden">Loading...</span>
+          </Button>}
+        </div>
+      </Form>
+      {(showText || showRegion || invalidName) &&
+      <div id='warnings'>
         {showText && <span style={{color: "red"}}>Enter a Summoner Name!</span>}
         {showRegion && <span style={{color: "red"}}>Select a Region!</span>}
         {invalidName && <span style={{color: "red"}}>Could not find Summoner!</span>}
-      </Stack>
+      </div>}
     </div>
   );
 }

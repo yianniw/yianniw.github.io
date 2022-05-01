@@ -1,6 +1,6 @@
 
 class RiotAPI {
-  static get ApiToken() { return ""; }
+  ApiToken = "";
   static get Scheme() { return "https://"; }
   static get Host() { return ".api.riotgames.com/"; }
   static get Query() { return "?api_key="; }
@@ -83,7 +83,7 @@ class RiotAPI {
     let endpoint = "lol/summoner/v4/summoners/by-name/"
     let request = RiotAPI.Scheme + region + RiotAPI.Host + endpoint + name + RiotAPI.Query;
 
-    return fetch(request + RiotAPI.ApiToken)
+    return fetch(request + rAPI.ApiToken)
       .then(response => response.json())
       .then(data => {
         rAPI.summonerData = data;
@@ -100,7 +100,7 @@ class RiotAPI {
     let endpoint = "lol/champion-mastery/v4/champion-masteries/by-summoner/"
     let request = RiotAPI.Scheme + rAPI.Region + RiotAPI.Host + endpoint + rAPI.SummonerId + RiotAPI.Query;
 
-    return fetch(request + RiotAPI.ApiToken)
+    return fetch(request + rAPI.ApiToken)
       .then(response => response.json())
       .then(data => {
         rAPI.championMastery = data;
