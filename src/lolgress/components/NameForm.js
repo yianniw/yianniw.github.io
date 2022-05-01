@@ -1,25 +1,28 @@
 import React, { useState } from 'react'
-import { Button, Dropdown, DropdownButton, Form, Stack } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Form, Stack, Spinner } from 'react-bootstrap';
 import region from '../data/regions.json'
 import './NameForm.css';
 
 const isBlank = (str) => { return (!str || /^\s*$/.test(str)); }
 
-function NameForm({rAPI, toggleRAPI}) {
+function NameForm({rAPI, updateSummoner}) {
   const [showText, setShowText] = useState(false);
   const [showRegion, setShowRegion] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
   const [border, setBorder] = useState("info");
+  const [isLoading, setIsLoading] = useState(false);
 
   const validate = async (name, region) => {
-    if(await rAPI.fetchData(rAPI, name, region)) {
+    setIsLoading(true);
+    if(await rAPI.fetchSummoner(rAPI, name, region)) {
       setBorder("info");
       setInvalidName(false);
-      toggleRAPI(true);
+      updateSummoner(rAPI.SummonerId);
     } else {
       setBorder("danger");
       setInvalidName(true);
     }
+    setIsLoading(false);
   }
 
   const handleSubmit = (e) => {
@@ -56,7 +59,12 @@ function NameForm({rAPI, toggleRAPI}) {
             <Form.Control type="text" maxLength="16" placeholder="Summoner Name" />
             <RegionPicker />
             <div className="vr" />
-            <Button type="submit" style={{paddingInline: "15px"}}>Go</Button>
+            {!isLoading && <Button type="submit" style={{paddingInline: "15px"}}>Go</Button>}
+            {isLoading &&
+              <Button variant="primary" style={{paddingInline: "15px"}} disabled>
+                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                <span className="visually-hidden">Loading...</span>
+              </Button>}
           </Stack>
         </Form>
         {showText && <span style={{color: "red"}}>Enter a Summoner Name!</span>}
