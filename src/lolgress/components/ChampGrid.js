@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack, Image, DropdownButton, Dropdown} from "react-bootstrap";
 import './ChampGrid.css';
-import { importAll } from "../Util";
+import { importAll, isMobile } from "../Util";
 
 const decoration = importAll(require.context('../data/mastery/decorations', false, /\.(png|jpe?g|svg)$/));
 const crest = importAll(require.context('../data/mastery/crests', false, /\.(png|jpe?g|svg)$/));
@@ -36,14 +36,14 @@ function ChampGrid({ rAPI, currentSummoner, rowLength = 6 }) {
       items.push(
         <div
           key={`icon${i}`}
-          className={`icon${showDecoration ? " show-decoration" : ""}`}>
+          className={`icon${isMobile() ? "-mobile" : ""}${showDecoration ? " show-decoration" : ""}`}>
           <Image
-            src={rAPI.getChampIcon(i)}
-            style={{ width: "74px", height: "74px" }} />
+            className={`image${isMobile() ? "-mobile" : ""}`}
+            src={rAPI.getChampIcon(i)} />
           {showDecoration &&
-            <Image
-              className="decoration"
-              src={decoration[`level${rAPI.getChampLevel(i)}.png`]} />}
+          <Image
+            className={`decoration${isMobile() ? "-mobile" : ""}`}
+            src={decoration[`level${rAPI.getChampLevel(i)}.png`]} />}
           <p className={`caption${showDecoration ? " show-decoration" : ""}`}>
             {rAPI.getChampName(i)}
           </p>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import NameForm from './components/NameForm'
 import ChampGrid from './components/ChampGrid';
+import Summary from './components/Summary';
 import RiotAPI from './RiotAPI';
 import './LoLgress.css';
-import { Form, Stack } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 function LoLgress() {
   document.title = "LoLgress";
@@ -29,24 +30,23 @@ function LoLgress() {
   return (
     <div className='lolgress'>
       <div className='title'>LoLgress!</div>
-      <div id='nameform-container' style={{flexGrow: `${currentSummoner !== null ? "0" : "1"}`}}>
-        <NameForm rAPI={rAPI} updateSummoner={updateSummoner} />
-        {currentSummoner === null &&
-        <div id='api-form'>
-          <Form.Control onChange={updateToken} placeholder="API Token..." />
+      <div className='spacer' style={{height: `${currentSummoner !== null ? "0" : "20vh"}`}}/>
+      <div className='content'>
+        <div id='nameform-container'>
+          <NameForm rAPI={rAPI} updateSummoner={updateSummoner} />
+          {currentSummoner === null &&
+          <div id='api-form'>
+            <Form.Control onChange={updateToken} placeholder="API Token..." />
+          </div>}
+        </div>
+        {currentSummoner != null &&
+        <div id='body-content'>
+          <Summary rAPI={rAPI} currentSummoner={currentSummoner}/>
+          <div id='champgrid-container'>
+            <ChampGrid rAPI={rAPI} currentSummoner={currentSummoner} />
+          </div>
         </div>}
       </div>
-      <div id='spacer' style={{flexGrow: `${currentSummoner !== null ? "0" : "2"}`}}/>
-      
-      {currentSummoner != null &&
-        <div className='content'>
-          <Stack direction="horizontal" >
-            <div className='ms-auto' />
-            <ChampGrid rAPI={rAPI} currentSummoner={currentSummoner} />
-            {(currentSummoner === null) && <div className='ms-auto' />}
-          </Stack>
-        </div>
-      }
     </div>
   )
 }

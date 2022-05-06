@@ -1,24 +1,23 @@
 #nameform {
-  flex-basis: 700px;
-  height: 70px;
   background: #EEEEEE;
   padding-inline: 20px;
   padding-block: 15px;
-  margin-inline: 15px;
+  border-radius: 5px;
 }
 
 #nameform-mobile {
   background: #EEEEEE;
   padding: 10px;
   margin-inline: 5px;
+  border-radius: 5px;
 }
 
-#content {
+#nameform-content {
   display: flex;
   gap: 20px;
 }
 
-#content-mobile {
+#nameform-content-mobile {
   display: flex;
   gap: 5px;
 }

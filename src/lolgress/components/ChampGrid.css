@@ -71,16 +71,41 @@
   position: relative;
   height: 110px;
   width: 100px;
-  /* border: 1px solid black; */
 }
 
 .icon.show-decoration {
   height: 150px;
 }
 
+.icon-mobile {
+  position: relative;
+  height: 80px;
+  width: 70px;
+}
+
+.icon-mobile.show-decoration {
+  height: 130px;
+}
+
+.image {
+  width: 74px;
+  height: 74px;
+}
+
+.image-mobile {
+  width: 56px;
+  height: 56px;
+}
+
 .decoration {
   position: absolute;
   left: 13px;
+}
+
+.decoration-mobile {
+  position: absolute;
+  left: 5px;
+  width: 56px;
 }
 
 .caption {

@@ -1,0 +1,13 @@
+#sidebar {
+  display: flex;
+  flex-shrink: 0;
+  width: 88px;
+  background-color: #424b5c;
+  border-right: 4px solid #282c34;
+}
+
+#sidebar-top {
+  background-color: #282c34;
+  width: 40px;
+  height: 36px;
+}

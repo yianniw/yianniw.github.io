@@ -42,7 +42,7 @@ function NameForm({rAPI, updateSummoner}) {
   return (
     <div id={`nameform${isMobile() ? "-mobile" : ""}`} className={`border border-${border} rounded`}>
       <Form onSubmit={handleSubmit}>
-        <div id={`content${isMobile() ? "-mobile" : ""}`}>
+        <div id={`nameform-content${isMobile() ? "-mobile" : ""}`}>
           <Form.Control type="text" placeholder="Summoner Name..." />
           <RegionPicker />
           <div className="vr" />

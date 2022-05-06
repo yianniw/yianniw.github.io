@@ -1,0 +1,69 @@
+#tokens {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 620px;
+  background-color: #2a9d8f;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#tokens::-webkit-scrollbar {
+  display: none;
+}
+
+.token-group-header {
+  color: #e9c46a;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px #264653;
+  margin-inline: 10px;
+}
+
+.token-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #264653;
+  border: 3px solid #282c34;
+  margin-inline: 20px;
+}
+
+.token-item {
+  position: relative;
+  height: 110px;
+  width: 100px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.token-count {
+  position: absolute;
+  bottom: 25px;
+  right: 17px;
+  font-size: 22px;
+  font-weight: 600;
+  text-shadow: 2px 2px 2px #264653;
+  color: aliceblue;
+}
+
+.token-decoration {
+  position: absolute;
+  top: 5px;
+  width: 74px;
+  height: 79px;
+}
+
+.token-icon {
+  width: 74px;
+  height: 74px;
+}
+
+.token-caption {
+  color: #e9c46a;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px #264653;
+}

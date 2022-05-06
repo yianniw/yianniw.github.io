@@ -30,12 +30,55 @@ class RiotAPI {
     return `${RiotAPI.DDragonHost}${RiotAPI.Version}/img/champion/${this.champArray[pos][1].name}.png`
   }
 
+  getChampIconByName(name) {
+    return `${RiotAPI.DDragonHost}${RiotAPI.Version}/img/champion/${name}.png`
+  }
+
   getChampName(pos) {
     return this.champArray[pos][0];
   }
 
   getChampLevel(pos) {
     return this.champArray[pos][1].championLevel != null ? this.champArray[pos][1].championLevel : 0;
+  }
+
+  getSummonerName() {
+    return this.summonerData.name;
+  }
+
+  getSummonerIcon() {
+    return `${RiotAPI.DDragonHost}${RiotAPI.Version}/img/profileicon/${this.summonerData.profileIconId}.png`
+  }
+
+  getChampsByLevel(level) {
+    var result = [];
+    this.champArray.forEach(champ => {
+      if(champ[1].championLevel === level) {
+        result.push(champ);
+      }
+    });
+
+    result.sort(function(a, b) {
+      return b[1].tokensEarned - a[1].tokensEarned;
+    })
+
+    return result;
+  }
+
+  getSummonerMasteryInfo() {
+    var info = {};
+    info.maxScore = null;
+    info.totalScore = null;
+
+    info.maxScore = this.champArray.length * 7;
+
+    this.champArray.forEach(champ => {
+      if(champ[1].championLevel !== null) {
+        info.totalScore += parseInt(champ[1].championLevel);
+      }
+    });
+    
+    return info;
   }
 
   async fetchChampData(rAPI) {
